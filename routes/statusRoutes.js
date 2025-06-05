@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Batch = require("../models/batch");
+const Batch = require("../models/batch.js");
 
 router.get("/status/:ingestion_id", async (req, res) => {
   try {
