@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
-const Batch = require("../models/batch.js");
+const Batch = require("../Models/batch.js");
 
 router.post("/ingest", async (req, res) => {
   try {
