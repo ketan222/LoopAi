@@ -7,11 +7,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 // Import routes
-const ingestRoutes = require("./routes/ingestRoutes");
-const statusRoutes = require("./routes/statusRoutes");
+const ingestRoutes = require("./routes/ingestRoutes.js");
+const statusRoutes = require("./routes/statusRoutes.js");
 
 // Import job processor
-const jobProcessor = require("./services/jobProcessor");
+const jobProcessor = require("./services/jobProcessor.js");
 
 // Create Express app
 const app = express();

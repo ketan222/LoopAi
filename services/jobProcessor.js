@@ -1,4 +1,4 @@
-const Batch = require("../models/batch");
+const Batch = require("../models/batch.js");
 
 /**
  * Job processor service for processing batches
