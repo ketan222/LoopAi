@@ -24,6 +24,9 @@ app.use(express.json());
 app.use("/", ingestRoutes);
 app.use("/", statusRoutes);
 
+app.get("/", (req, res) => {
+  res.send("API is running. Check available endpoints.");
+});
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI)
