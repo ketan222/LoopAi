@@ -1,0 +1,19 @@
+{
+  "name": "loopai",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "espress": "^0.0.0",
+    "mongoose": "^8.15.1",
+    "node": "^22.16.0",
+    "ratelimiter": "^3.4.1",
+    "uuid": "^11.1.0"
+  }
+}
