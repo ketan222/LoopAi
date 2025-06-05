@@ -1,17 +1,55 @@
-const app = require("./app");
+const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
 
-const port = process.env.PORT || 3000;
-const db = process.env.DATABASE || process.env.LOCALDATABASE;
+// Load environment variables
+dotenv.config();
 
-console.log(db + " " + port);
+// Import routes
+const ingestRoutes = require("./routes/ingestRoutes");
+const statusRoutes = require("./routes/statusRoutes");
 
-mongoose.connect(db).then(() => {
-  console.log("Database connection successful");
-});
+// Import job processor
+const jobProcessor = require("./services/jobProcessor");
 
-app.listen(port, () => {
-  console.log("Server is running on port " + port);
+// Create Express app
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Routes
+app.use("/", ingestRoutes);
+app.use("/", statusRoutes);
+
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+
+    // Start the job processor
+    jobProcessor.start();
+
+    // Start the server
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB", err);
+    process.exit(1);
+  });
+
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    success: false,
+    message: "Internal Server Error",
+    error: process.env.NODE_ENV === "development" ? err.message : undefined,
+  });
 });
